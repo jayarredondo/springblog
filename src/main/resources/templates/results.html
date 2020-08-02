@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+<h1 th:if="${number} == ${answer}">That's correct!</h1>
+<h2>You chose: <span th:text="${number}"></span></h2>
+<h4>The die says: <span th:text="${answer}"></span></h4>
+<a href="/roll-dice">Go Back</a>
+</body>
+</html>
