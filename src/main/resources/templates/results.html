@@ -5,9 +5,13 @@
     <title>Results</title>
 </head>
 <body>
+<header th:replace="partials/partials.html :: header"></header>
+<nav th:replace="partials/partials.html :: navbar"></nav>
 <h1 th:if="${number} == ${answer}">That's correct!</h1>
 <h2>You chose: <span th:text="${number}"></span></h2>
 <h4>The die says: <span th:text="${answer}"></span></h4>
 <a href="/roll-dice">Go Back</a>
+<footer th:replace="partials/partials.html :: footer"></footer>
+
 </body>
 </html>

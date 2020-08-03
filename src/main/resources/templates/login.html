@@ -5,6 +5,8 @@
     <title>Login</title>
 </head>
 <body>
+<header th:replace="partials/partials.html :: header"></header>
+<nav th:replace="partials/partials.html :: navbar"></nav>
 <form action="/profile" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username">
@@ -12,5 +14,6 @@
     <input type="password" id="password" name="password">
     <button type="submit">Submit</button>
 </form>
+<footer th:replace="partials/partials.html :: footer"></footer>
 </body>
 </html>

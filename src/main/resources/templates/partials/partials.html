@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<header th:fragment="header"><h2>SpringBlog</h2></header>
+<nav th:fragment="navbar" style="background-color: azure">
+    <ul style="padding-left: 0">
+        <li style="display: inline-block"><h2>Navbar</h2></li>
+        <li style="display: inline-block; padding: 1em"><a href="/">Home</a></li>
+        <li style="display: inline-block; padding: 1em"><a href="/profile/User">View Profile</a></li>
+        <li style="display: inline-block; padding: 1em"><a href="/login">Login</a></li>
+    </ul>
+</nav>
+<footer th:fragment="footer">
+    <hr>
+    <ul>
+        <li>Contact Us</li>
+        <li>Customer Service</li>
+        <li>Partnerships</li>
+        <li>Employment</li>
+    </ul>
+</footer>
+</body>
+</html>
