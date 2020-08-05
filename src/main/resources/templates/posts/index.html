@@ -8,8 +8,14 @@
 <header th:replace="partials/partials.html :: header"></header>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 <div th:each="post : ${allPosts}">
-    <h3 th:text="${post.getTitle()}"></h3>
+    <a th:href="@{|/posts/${post.getId()}|}"><h3 th:text="${post.getTitle()}"></h3></a>
     <p th:text="${post.getBody()}"></p>
+    <form method="post" action="/posts/edit">
+        <button type="submit" th:value="${post.id}" name="editPost">Edit</button>
+    </form>
+    <form action="/posts/delete" method="post">
+        <button type="submit" th:value="${post.id}" name="deletePost">Delete</button>
+    </form>
 </div>
 <footer th:replace="partials/partials.html :: footer"></footer>
 </body>

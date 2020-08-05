@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Post</title>
+</head>
+<body>
+<h1>Please make your changes below:</h1>
+<div>
+    <form th:action="@{/posts/save}" th:method="post">
+        <input type="hidden" name="postId" th:value="${postToEdit.id}">
+        <label for="title">Title</label><input type="text" id="title" name="title" th:value="${postToEdit.title}">
+        <label for="body">Body</label><input type="text" id="body" name="body" th:value="${postToEdit.body}">
+        <button type="submit">Submit Changes</button>
+    </form>
+</div>
+</body>
+</html>
