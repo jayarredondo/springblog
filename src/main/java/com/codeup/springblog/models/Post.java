@@ -12,6 +12,10 @@ public class Post {
     private String title;
     @Column(nullable = false)
     private String body;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User parentUser;
+
 
     public Post() {}
 
@@ -24,6 +28,14 @@ public class Post {
         this.id = id;
         this.title = title;
         this.body = body;
+    }
+
+    public User getParentUser() {
+        return parentUser;
+    }
+
+    public void setParentUser(User parentUser) {
+        this.parentUser = parentUser;
     }
 
     public long getId() {

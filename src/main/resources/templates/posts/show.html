@@ -8,8 +8,9 @@
 <header th:replace="partials/partials.html :: header"></header>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 <div>
-    <h3 th:text="${singlePost.getTitle()}"></h3>
-    <p th:text="${singlePost.getBody()}"></p>
+    <h3 th:text="${singlePost.title}"></h3>
+    <p th:text="${singlePost.body}"></p>
+    <small th:text="${singlePost.parentUser.email}"></small>
 </div>
 <footer th:replace="partials/partials.html :: footer"></footer>
 </body>
