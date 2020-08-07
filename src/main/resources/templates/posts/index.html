@@ -10,9 +10,7 @@
 <div th:each="post : ${allPosts}">
     <a th:href="@{|/posts/${post.getId()}|}"><h3 th:text="${post.getTitle()}"></h3></a>
     <p th:text="${post.getBody()}"></p>
-    <form method="post" action="/posts/edit">
-        <button type="submit" th:value="${post.id}" name="editPost">Edit</button>
-    </form>
+    <a th:href="@{/posts/{id}/edit(id=${post.id})}" role="button">Edit</a>
     <form action="/posts/delete" method="post">
         <button type="submit" th:value="${post.id}" name="deletePost">Delete</button>
     </form>

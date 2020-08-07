@@ -7,10 +7,15 @@
 <body>
 <h1>Please make your changes below:</h1>
 <div>
-    <form th:action="@{/posts/save}" th:method="post">
-        <input type="hidden" name="postId" th:value="${postToEdit.id}">
-        <label for="title">Title</label><input type="text" id="title" name="title" th:value="${postToEdit.title}">
-        <label for="body">Body</label><input type="text" id="body" name="body" th:value="${postToEdit.body}">
+    <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="post" th:object="${post}">
+        <label for="title">Title</label><input type="text" id="title" name="title" th:field="*{title}" th:value="*{title}">
+        <label for="body">Body</label><input type="text" id="body" name="body" th:field="*{body}" th:value="*{body}">
+<!--        <ul>-->
+<!--            <li th:each="category : ${categories}">-->
+<!--                <label th:for="${category.name}" th:text="${category.name}"></label>-->
+<!--                <input type="checkbox" name="categoryIds" th:id="${category.name}" th:value="${category.id}" th:checked="${post.categories.get(${category.id})} : ">-->
+<!--            </li>-->
+<!--        </ul>-->
         <button type="submit">Submit Changes</button>
     </form>
 </div>

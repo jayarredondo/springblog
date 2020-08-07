@@ -2,9 +2,11 @@ package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Category;
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.CategoryRepository;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,13 @@ public class PostController {
     private final UserRepository usersDao;
     private final PostRepository postsDao;
     private final CategoryRepository catDao;
+    private final EmailService emailService;
 
-    public PostController(UserRepository usersDao, PostRepository postsDao, CategoryRepository catDao) {
+    public PostController(UserRepository usersDao, PostRepository postsDao, CategoryRepository catDao, EmailService emailService) {
         this.usersDao = usersDao;
         this.postsDao = postsDao;
         this.catDao = catDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -42,8 +46,8 @@ public class PostController {
     @GetMapping ("/posts/create")
     public String createPostForm(Model model){
         model.addAttribute("post", new Post());
-//        List<Category> categories = catDao.findAll();
-//        model.addAttribute("categories", categories);
+        List<Category> categories = catDao.findAll();
+        model.addAttribute("categories", categories);
         return "posts/create";
     }
 
@@ -58,23 +62,26 @@ public class PostController {
         post.setParentUser(usersDao.getOne(1L));
         post.setCategories(postCategories);
         postsDao.save(post);
+        emailService.prepareAndSend(post, "New Post Created", "Your new post has been created!");
         return "redirect:/posts";
     }
 
     // ----EDIT AND DELETE------
 
-    @PostMapping ("/posts/save")
-    public String save(@RequestParam(name = "title") String title, @RequestParam(name="body") String body, @RequestParam(name = "postId") long id){
-        Post updatedPost = new Post(id, title, body);
-        postsDao.save(updatedPost);
+    @PostMapping ("/posts/{id}/edit")
+    public String save(@PathVariable long id, @ModelAttribute Post post){
+        User user = usersDao.getOne(1L);
+        post.setParentUser(user);
+        // need to set categories as well
+        postsDao.save(post);
         return "redirect:/posts";
     }
 
-    @PostMapping("/posts/edit")
-    public String editPost(@RequestParam(name = "editPost") long id, Model model){
+    @GetMapping("/posts/{id}/edit")
+    public String editForm(@PathVariable long id, Model model){
         Post postToEdit = postsDao.getOne(id);
-        model.addAttribute("postToEdit", postToEdit);
-        return "/posts/edit";
+        model.addAttribute("post", postToEdit);
+        return "posts/edit";
     }
 
     @PostMapping("/posts/delete")
