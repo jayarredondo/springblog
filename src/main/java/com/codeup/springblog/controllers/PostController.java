@@ -1,21 +1,29 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.models.Category;
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.repositories.CategoryRepository;
 import com.codeup.springblog.repositories.PostRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
 
+    private final UserRepository usersDao;
     private final PostRepository postsDao;
+    private final CategoryRepository catDao;
 
-    public PostController(PostRepository postsDao) {
+    public PostController(UserRepository usersDao, PostRepository postsDao, CategoryRepository catDao) {
+        this.usersDao = usersDao;
         this.postsDao = postsDao;
+        this.catDao = catDao;
     }
 
     @GetMapping("/posts")
@@ -32,21 +40,31 @@ public class PostController {
     }
 
     @GetMapping ("/posts/create")
-    @ResponseBody
-    public String createPostForm(){
-        return "This is where you can fill out the form to create a post.";
+    public String createPostForm(Model model){
+        model.addAttribute("post", new Post());
+//        List<Category> categories = catDao.findAll();
+//        model.addAttribute("categories", categories);
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost(){
-        return "This will create a new post.";
+    public String createPost(@ModelAttribute Post post, @RequestParam(value = "categoryIds", required = false) long [] categoryIds){
+        List<Category> postCategories = new ArrayList<>();
+        if(categoryIds != null) {
+            for (long category : categoryIds) {
+                postCategories.add(catDao.getOne(category));
+            }
+        }
+        post.setParentUser(usersDao.getOne(1L));
+        post.setCategories(postCategories);
+        postsDao.save(post);
+        return "redirect:/posts";
     }
 
     // ----EDIT AND DELETE------
 
     @PostMapping ("/posts/save")
-    public String save(@RequestParam(name = "title") String title, @RequestParam(name="body") String body, @RequestParam(name = "postId") long id, Model model){
+    public String save(@RequestParam(name = "title") String title, @RequestParam(name="body") String body, @RequestParam(name = "postId") long id){
         Post updatedPost = new Post(id, title, body);
         postsDao.save(updatedPost);
         return "redirect:/posts";

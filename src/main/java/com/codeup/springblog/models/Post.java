@@ -1,6 +1,7 @@
 package com.codeup.springblog.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -15,6 +16,12 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User parentUser;
+
+    @ManyToMany
+    @JoinTable(name = "category_post",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")})
+    private List<Category> categories;
 
 
     public Post() {}
@@ -60,5 +67,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -10,11 +10,11 @@ public class User {
     private long id;
     @Column(columnDefinition = "VARCHAR(20)",nullable = false, unique = true)
     private String username;
-    @Column(nullable = false, unique = true)
+    @Column(length = 20, nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     private String password;
-    @OneToMany(mappedBy = "parentUser")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentUser")
     private List<Post> posts;
 
     public long getId() {

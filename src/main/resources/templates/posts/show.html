@@ -10,7 +10,11 @@
 <div>
     <h3 th:text="${singlePost.title}"></h3>
     <p th:text="${singlePost.body}"></p>
-    <small th:text="${singlePost.parentUser.email}"></small>
+    <p><strong>Categories:</strong></p>
+    <ul >
+     <li th:each="category : ${singlePost.categories}" th:text="${category.name}"></li>
+    </ul>
+    <small>Author: </small><small th:text="${singlePost.parentUser.email}"></small>
 </div>
 <footer th:replace="partials/partials.html :: footer"></footer>
 </body>

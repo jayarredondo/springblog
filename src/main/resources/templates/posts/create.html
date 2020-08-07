@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a Post</title>
+</head>
+<body>
+<h1>Create your post below:</h1>
+<form th:method="post" th:action="@{/posts/create}" th:object="${post}">
+    <label for="title">Title: </label><br>
+    <input type="text" th:field="*{title}" id="title" placeholder="Please enter a title.">
+    <label for="body"></label><br>
+    <textarea th:field="*{body}" id="body" cols="30" rows="10" placeholder="Insert Content Here."></textarea><br>
+    <label for="humor">Humor</label>
+    <input type="checkbox" name="categoryIds" id="humor" value="1">
+    <label for="politics">Politics</label>
+    <input type="checkbox" name="categoryIds" id="politics" value="2">
+    <label for="sports">Sports</label>
+    <input type="checkbox" name="categoryIds" id="sports" value="3">
+    <label for="pop-culture">Pop Culture</label>
+    <input type="checkbox" name="categoryIds" id="pop-culture" value="4">
+    <label for="music">Music</label>
+    <input type="checkbox" name="categoryIds" id="music" value="5">
+    <label for="empowerment">Empowerment</label>
+    <input type="checkbox" name="categoryIds" id="empowerment" value="6">
+    <label for="public-issue">Public Issue</label>
+    <input type="checkbox" name="categoryIds" id="public-issue" value="7">
+    <label for="health">Health</label>
+    <input type="checkbox" name="categoryIds" id="health" value="8">
+    <label for="other">Other</label>
+    <input type="checkbox" name="categoryIds" id="other" value="9"><br>
+    <button type="submit">Create Post</button>
+</form>
+</body>
+</html>
