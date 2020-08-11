@@ -4,19 +4,21 @@
     <title>Create a Post</title>
 </head>
 <body>
-<h1>Create your post below:</h1>
-<form th:method="post" th:action="@{/posts/create}" th:object="${post}">
-    <label for="title">Title: </label><br>
-    <input type="text" th:field="*{title}" id="title" placeholder="Please enter a title.">
-    <label for="body"></label><br>
-    <textarea th:field="*{body}" id="body" cols="30" rows="10" placeholder="Insert Content Here."></textarea><br>
-    <ul>
-        <li th:each="category : ${categories}">
-            <label th:for="${category.name}" th:text="${category.name}"></label>
-            <input type="checkbox" name="categoryIds" th:id="${category.name}" th:value="${category.id}">
-        </li>
-    </ul>
-    <button type="submit">Create Post</button>
-</form>
+<div class="container">
+    <h1>Create your post below:</h1>
+    <form th:method="post" th:action="@{/posts/create}" th:object="${post}">
+        <label for="title">Title: </label><br>
+        <input type="text" th:field="*{title}" id="title" placeholder="Please enter a title.">
+        <label for="body"></label><br>
+        <textarea th:field="*{body}" id="body" cols="30" rows="10" placeholder="Insert Content Here."></textarea><br>
+        <ul>
+            <li style="list-style: none" th:each="category : ${categories}">
+                <label th:for="${category.name}" th:text="${category.name}"></label>
+                <input type="checkbox" name="categoryIds" th:id="${category.name}" th:value="${category.id}">
+            </li>
+        </ul>
+        <button type="submit">Create Post</button>
+    </form>
+</div>
 </body>
 </html>

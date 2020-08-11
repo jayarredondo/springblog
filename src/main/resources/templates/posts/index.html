@@ -5,14 +5,21 @@
 </head>
 <body>
 <nav th:replace="partials/partials.html :: navbar"></nav>
-<div th:each="post : ${allPosts}">
-    <a th:href="@{|/posts/${post.getId()}|}"><h3 th:text="${post.getTitle()}"></h3></a>
-    <p th:text="${post.getBody()}"></p>
-    <a th:href="@{/posts/{id}/edit(id=${post.id})}" role="button">Edit</a>
-    <form action="/posts/delete" method="post">
-        <button type="submit" th:value="${post.id}" name="deletePost">Delete</button>
-    </form>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3" th:each="post : ${allPosts}">
+        <div class="col mb-4">
+            <div class="card"></div>
+            <div clas="card-body">
+                <a th:href="@{|/posts/${post.getId()}|}"><h3 class="card-title" th:text="${post.getTitle()}"></h3></a>
+                <p class="card-subtitle" th:text="${post.getBody()}"></p>
+                <a class="card-link" th:href="@{/posts/{id}/edit(id=${post.id})}" role="button">Edit</a>
+                <form action="/posts/delete" method="post">
+                    <button class="card-link" type="submit" th:value="${post.id}" name="deletePost">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+        <footer th:replace="partials/partials.html :: footer"></footer>
 </div>
-<footer th:replace="partials/partials.html :: footer"></footer>
 </body>
 </html>

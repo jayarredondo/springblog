@@ -3,6 +3,18 @@
 <head th:fragment="head">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style th:inline="text">
+        body{
+            /*background: url("@{~/img/troglodyte.png}");*/
+            background-color: #212121;
+        }
+        h1, h2, h3, h4 {
+            color: white;!important;
+        }
+        p, span, a, label, li {
+            color:white;
+        }
+    </style>
 </head>
 <body>
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
