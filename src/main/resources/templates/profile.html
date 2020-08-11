@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="eng">
-<head>
-    <meta charset="UTF-8">
+<head th:replace="partials/partials.html :: head">
     <title>Title</title>
 </head>
 <body>
-<header th:replace="partials/partials.html :: header"></header>
 <nav th:replace="partials/partials.html :: navbar"></nav>
 
-<h1>Welcome, <span th:text="${username}"></span>!</h1>
-<p>Your password is: <span th:text="${password}"></span></p>
+<h1>Welcome, <span th:text="${user}"></span>!</h1>
 
 <footer th:replace="partials/partials.html :: footer"></footer>
 </body>

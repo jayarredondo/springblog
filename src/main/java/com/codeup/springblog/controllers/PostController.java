@@ -7,6 +7,7 @@ import com.codeup.springblog.repositories.CategoryRepository;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +60,7 @@ public class PostController {
                 postCategories.add(catDao.getOne(category));
             }
         }
-        post.setParentUser(usersDao.getOne(1L));
+        post.setParentUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         post.setCategories(postCategories);
         postsDao.save(post);
         emailService.prepareAndSend(post, "New Post Created", "Your new post has been created!");
@@ -70,8 +71,7 @@ public class PostController {
 
     @PostMapping ("/posts/{id}/edit")
     public String save(@PathVariable long id, @ModelAttribute Post post){
-        User user = usersDao.getOne(1L);
-        post.setParentUser(user);
+        post.setParentUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         // need to set categories as well
         postsDao.save(post);
         return "redirect:/posts";
